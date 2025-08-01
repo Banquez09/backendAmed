@@ -1,0 +1,273 @@
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
+@Entity()
+export class AphDigital {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    // Información básica
+    @Column({ type: 'varchar', length: 20 })
+    numeroFormulario: string;
+
+    @Column({ type: 'varchar', length: 100 })
+    placa: string;
+
+    @Column({ type: 'varchar', length: 50 })
+    cc: string;
+
+    @Column({ type: 'date' })
+    fecha: Date;
+
+    @Column({ type: 'varchar', length: 200 })
+    nombrePaciente: string;
+
+    // Tipo de servicio
+    @Column({ type: 'boolean', default: false })
+    ambulanciaBasica: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    medicalizado: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    consultaMedica: boolean;
+
+    @Column({ type: 'int', nullable: true })
+    edad: number;
+
+    @Column({ type: 'enum', enum: ['M', 'F'], nullable: true })
+    sexo: string;
+
+    @Column({ type: 'varchar', length: 50, nullable: true })
+    identificacion: string;
+
+    @Column({ type: 'enum', enum: ['Soltero', 'Casado', 'Viudo', 'Divorciado', 'Union Libre'], nullable: true })
+    estadoCivil: string;
+
+    @Column({ type: 'text', nullable: true })
+    diagnostico: string;
+
+    @Column({ type: 'text', nullable: true })
+    notaEvolucion: string;
+
+    // Signos Vitales
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    fc: string; // Frecuencia cardíaca
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    fr: string; // Frecuencia respiratoria
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    temp: string; // Temperatura
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    ta: string; // Tensión arterial
+
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    aceptadoPor: string;
+
+    // Estado clínico general - falta estado clnico del paciente
+    @Column({ type: 'varchar', length: 150, nullable: true })
+    estadoclinicopac: string;
+
+    @Column({ type: 'varchar', length: 20, nullable: true })
+    eps: string;
+
+    @Column({ type: 'varchar', length: 20, nullable: true })
+    arl: string;
+
+    // Oxígeno y equipos
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    o2: string;
+
+    /*@Column({ type: 'varchar', length: 20, nullable: true })
+    lmt: string;*/
+
+    @Column({ type: 'boolean', default: false })
+    canulaNasal: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    equipoVenturi: boolean;
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    porcentajeOxigeno: string;
+
+    @Column({ type: 'boolean', default: false })
+    mascaraReservorio: boolean;
+
+    // @Column({ type: 'boolean', default: false })
+    // equiposBiomedicos: boolean;
+
+    // @Column({ type: 'boolean', default: false })
+    // bombaInfusion: boolean;
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    via: string;
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    ccVia: string;
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    via2: string;
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    ccVia2: string;
+
+    // Equipos adicionales
+    @Column({ type: 'boolean', default: false })
+    equipoMultiparametro: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    ventiladorMecanico: boolean;
+
+    // @Column({ type: 'boolean', default: false })
+    // respirador: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    valvulaPeep: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    desfibrilador: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    joules: boolean;
+    //preguntar por el joules
+    @Column({ type: 'varchar', length: 20, nullable: true })
+    aspirador: string;
+
+    @Column({ type: 'boolean', default: false })
+    capnografo: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    pulmoaire: boolean;
+
+    // Información de transporte
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    ambulanciaSolicitada: string;
+
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    direccionServicio: string;
+
+    @Column({ type: 'varchar', length: 20, nullable: true })
+    tel: string;
+
+    // Destino del paciente
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    destinoPaciente: string;
+
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    estudio: string;
+
+    // Hora
+    @Column({ type: 'time', nullable: true })
+    horarioLL1: string;
+
+    @Column({ type: 'time', nullable: true })
+    horarioSa1: string;
+
+    @Column({ type: 'time', nullable: true })
+    horarioLL2: string;
+
+    @Column({ type: 'time', nullable: true })
+    horarioSa2: string;
+
+    @Column({ type: 'time', nullable: true })
+    horarioLL3: string;
+
+    @Column({ type: 'time', nullable: true })
+    horarioSa3: string;
+
+    @Column({ type: 'time', nullable: true })
+    horarioLL4: string;
+
+    @Column({ type: 'time', nullable: true })
+    horarioSa4: string;
+
+    // Tipo de servicio de ambulancia
+    @Column({ type: 'boolean', default: false })
+    servicioSimple: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    redondo: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    fallido: boolean;
+
+    @Column({ type: 'text', nullable: true })
+    direccionTrasladoPaciente: string;
+
+    // Responsable del paciente
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    responsablePaciente: string;
+
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    acompanante: string;
+
+    @Column({ type: 'varchar', length: 50, nullable: true })
+    ccAcompanante: string;
+
+    @Column({ type: 'text', nullable: true })
+    recomendacionesTraslado: string;
+
+    // Medicamentos e insumos (como JSON para flexibilidad)
+    @Column({ type: 'json', nullable: true })
+    medicamentosInsumos: {
+        descripcion: string;
+        cantidad: number;
+    }[];
+
+    // Información del servicio
+    @Column({ type: 'varchar', length: 50, nullable: true })
+    ordenServicioNo: string;
+
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    remision: string;
+
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    factura: string;
+
+    @Column({ type: 'enum', enum: ['MUY_BUENA', 'BUENA', 'REGULAR', 'MALA', 'MUY_MALA'], nullable: true })
+    comoParecioServicio: string;
+
+    // Recomendaciones
+
+    @Column({ type: 'boolean', default: false })
+    definitivamenteSi: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    probablementeSi: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    definitivamenteNo: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    probablementeNo: boolean;
+
+    // Firmas y funcionarios
+    // @Column({ type: 'varchar', length: 200, nullable: true })
+    // institucionResponsablePaciente: string;
+
+    // @Column({ type: 'varchar', length: 200, nullable: true })
+    // institucionRecibePaciente: string;
+
+    @Column({ type: 'text', nullable: true })
+    firmaSelloResponsable: string;
+
+    @Column({ type: 'text', nullable: true })
+    funcionarioAMED: string;
+
+    @Column({ type: 'text', nullable: true })
+    firmaInstitucionRecibePaciente: string;
+
+    @Column({ type: 'text', nullable: true })
+    firmaMedico: string;
+
+    @Column({ type: 'text', nullable: true })
+    firmaPaciente: string;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+}
+
