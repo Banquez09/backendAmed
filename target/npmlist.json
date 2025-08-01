@@ -1,0 +1,1 @@
+{"version":"0.0.1","name":"prueba-proyecto","dependencies":{"@nestjs/common":{"version":"9.2.1"},"@nestjs/core":{"version":"9.2.1"},"@nestjs/platform-express":{"version":"9.2.1"},"reflect-metadata":{"version":"0.1.13"},"rimraf":{"version":"3.0.2"},"rxjs":{"version":"7.6.0"}}}
