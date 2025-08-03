@@ -15,7 +15,7 @@ export class AuthService {
 
 
   async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersRepository.findOne({ where: { email } });
+    const user = await this.usersRepository.findOne({ where: { email }, relations: ['rol'] });
     if (!user) {
       console.log("Usuario no encontrado");
       return null;
@@ -37,9 +37,12 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales inválidas');
     }
     console.log("Login exitoso para el usuario:", user.email);
-    const payload = { email: user.email, sub: user.id };
+    const userRoleName = user.rol ? user.rol.nombre : "default_role"
+
+    const payload = { email: user.email, sub: user.id, role: userRoleName }
     return {
       access_token: this.jwtService.sign(payload),
+      role: userRoleName, // Ahora devolvemos el nombre del rol como una cadena
     };
   }
  

@@ -18,11 +18,12 @@ export class SeedRol {
           const defaultRoles = [
             { nombre: 'SuperAdmin', descripcion: 'Super Administrador del sistema (Propietarios)'},
             { nombre: 'Admin', descripcion: 'Administrador del sistema (Usuario)'},
-            { nombre: 'Medico', descripcion: 'Medico asociado a la ambulancia'},
-            { nombre: 'Paramedico', descripcion: 'Paramedico de la ambulancia'},
-            { nombre: 'Conductor', descripcion: 'Conductor Ambulancia'},
-            { nombre: 'Auditor', descripcion: 'Auditor del sistema'},
-            { nombre: 'IPS', descripcion: 'Ips donde llegaran o saldran los pacientes'},
+            // { nombre: 'Medico', descripcion: 'Medico asociado a la ambulancia'},
+            // { nombre: 'Paramedico', descripcion: 'Paramedico de la ambulancia'},
+            // { nombre: 'Conductor', descripcion: 'Conductor Ambulancia'},
+            // { nombre: 'Auditor', descripcion: 'Auditor del sistema'},
+            // { nombre: 'IPS', descripcion: 'Ips donde llegaran o saldran los pacientes'},
+            { nombre: 'Usuario', descripcion: 'Ips donde llegaran o saldran los pacientes'},
           ];
     
           await this.rolRepository.save(defaultRoles);
