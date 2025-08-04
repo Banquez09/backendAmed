@@ -6,11 +6,21 @@ import { SeedEstadoAmbulancias } from './estado-ambulancia/seed/seed.estado-ambu
 import { SeedRol } from './rol/seed/seed.rol';
 import { SeedUser } from './users/seed/seed.user';
 import { IoAdapter } from '@nestjs/platform-socket.io';
+import { ValidationPipe } from '@nestjs/common';
 
 dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+// Validaciones globales para los DTOs
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
 //SEEDERS ESTADO AMBULANCIA
   const EstadoAmbulancias = app.get(SeedEstadoAmbulancias);

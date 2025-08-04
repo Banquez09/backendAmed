@@ -1,6 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Ambulancia } from 'src/ambulancia/entities/ambulancia.entity';
 import { AphDigital } from 'src/aph-digital/entities/aph-digital.entity';
+import { Cie10 } from 'src/cie10/entities/cie10.entity';
 import { EstadoAmbulancia } from 'src/estado-ambulancia/entities/estado-ambulancia.entity';
 import { Rol } from 'src/rol/entities/rol.entity';
 import { Solicitud } from 'src/solicitud/entities/solicitud.entity';
@@ -14,7 +15,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: 'Devsync2025+', 
   database: 'postgres',
 //entities: [__dirname + '/**/*.entity{.ts,.js}'],
-  entities: [User, Rol, Ambulancia, EstadoAmbulancia,Solicitud,AphDigital],
+  entities: [User, Rol, Ambulancia, EstadoAmbulancia,Solicitud,AphDigital,Cie10],
   synchronize: true, 
   logging: true,
   ssl: {
