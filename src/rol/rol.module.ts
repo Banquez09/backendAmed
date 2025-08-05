@@ -10,6 +10,6 @@ import { SeedRol } from './seed/seed.rol';
   imports: [TypeOrmModule.forFeature([User, Rol])],
   controllers: [RolController],
   providers: [RolService,SeedRol],
-  exports: [SeedRol],
+  exports: [SeedRol,RolService],
 })
 export class RolModule {}
