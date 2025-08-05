@@ -4,17 +4,49 @@ import { UpdateAphDigitalDto } from './dto/update-aph-digital.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AphDigital } from './entities/aph-digital.entity';
 import { Repository } from 'typeorm';
+import { BitacorasService } from "../bitacoras/bitacoras.service";
 
 @Injectable()
 export class AphDigitalService {
   constructor(
     @InjectRepository(AphDigital)
     private AphDigitalRepository: Repository<AphDigital>,
+    private readonly bitacorasService: BitacorasService,
   ) {}
 
   async create(createAphDigitalDto: CreateAphDigitalDto): Promise<AphDigital> {
-    const AphDigital = this.AphDigitalRepository.create(createAphDigitalDto);
-    return await this.AphDigitalRepository.save(AphDigital);
+    const aphDigital = this.AphDigitalRepository.create(createAphDigitalDto);
+    const savedAph = await this.AphDigitalRepository.save(aphDigital);
+
+    // const bitacoraData = {
+    //   radioOperador: createAphDigitalDto.radioOperador,
+    //   entidad: createAphDigitalDto.eps,
+    //   contacto: createAphDigitalDto.contacto,
+    //   nombrePaciente: createAphDigitalDto.nombrePaciente,
+    //   tipoDocumento: createAphDigitalDto.ti,
+    //   documento: createAphDigitalDto.documento,
+    //   nombreAcompanante: createAphDigitalDto.nombreAcompanante,
+    //   fechaTraslado: createAphDigitalDto.fechaTraslado,
+    //   horaTraslado: createAphDigitalDto.horaTraslado,
+    //   origen: createAphDigitalDto.origen,
+    //   destino: createAphDigitalDto.destino,
+    //   tipoTraslado: createAphDigitalDto.tipoTraslado,
+    //   conductor: createAphDigitalDto.conductor,
+    //   paramedico: createAphDigitalDto.paramedico,
+    //   diagnostico: createAphDigitalDto.diagnostico,
+    //   evolucion: createAphDigitalDto.evolucion,
+    //   codigo: createAphDigitalDto.codigo,
+    //   mv: createAphDigitalDto.mv,
+    //   medico: createAphDigitalDto.medico,
+    //   observacion: createAphDigitalDto.observacion,
+    //   valor: createAphDigitalDto.valor,
+    //   noPlanilla: createAphDigitalDto.noPlanilla,
+    // };
+
+    // 3. Guardar en bitácora usando su servicio
+    //await this.bitacorasService.create(bitacoraData);
+
+    return savedAph;
   }
 
   async findAll(): Promise<AphDigital[]> {

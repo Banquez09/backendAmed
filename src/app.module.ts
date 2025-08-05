@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { EstadoAmbulanciaModule } from './estado-ambulancia/estado-ambulancia.module';
 import { SolicitudesModule } from './solicitud/solicitud.module';
 import { AphDigitalModule } from './aph-digital/aph-digital.module';
+import { Cie10Module } from './cie10/cie10.module';
+import { BitacorasModule } from './bitacoras/bitacoras.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { AphDigitalModule } from './aph-digital/aph-digital.module';
     EstadoAmbulanciaModule,
     SolicitudesModule,
     AphDigitalModule,
+    Cie10Module,
+    BitacorasModule,
   ],
 })
 export class AppModule {}
