@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { webcrypto } from "node:crypto";
 import { RolService } from "../rol/rol.service";
+import { Rol } from "../rol/entities/rol.entity";
 
 @Injectable()
 export class UsersService {
