@@ -1,7 +1,18 @@
-import { IsArray, IsBoolean, IsDateString, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import {
+  IsArray,
+  IsBoolean,
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
-export class CreateAphDigitalDto { @IsString()
-  @IsNotEmpty()
+export class CreateAphDigitalDto {
+  @IsString()
+  @IsString()
+  @IsOptional()
   numeroFormulario: string;
 
   @IsString()
@@ -296,18 +307,17 @@ export class CreateAphDigitalDto { @IsString()
   @IsString()
   institucionRecibePaciente?: string;
 
-    @IsOptional()
+  @IsOptional()
   @IsString()
   firmaInstitucionRecibePaciente?: string;
 
- @IsOptional()
+  @IsOptional()
   @IsString()
   firmaPaciente?: string;
 
-   @IsOptional()
+  @IsOptional()
   @IsString()
   firmaMedico?: string;
-  
 
   @IsOptional()
   @IsString()

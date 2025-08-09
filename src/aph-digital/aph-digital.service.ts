@@ -18,6 +18,8 @@ export class AphDigitalService {
     const aphDigital = this.AphDigitalRepository.create(createAphDigitalDto);
     const savedAph = await this.AphDigitalRepository.save(aphDigital);
 
+
+
     // const bitacoraData = {
     //   radioOperador: createAphDigitalDto.radioOperador,
     //   entidad: createAphDigitalDto.eps,
@@ -45,8 +47,10 @@ export class AphDigitalService {
 
     // 3. Guardar en bitácora usando su servicio
     //await this.bitacorasService.create(bitacoraData);
+    savedAph.numeroFormulario = `FORM-${savedAph.id}`;
 
-    return savedAph;
+    // Guardar nuevamente con el numeroFormulario asignado
+    return this.AphDigitalRepository.save(savedAph);
   }
 
   async findAll(): Promise<AphDigital[]> {
