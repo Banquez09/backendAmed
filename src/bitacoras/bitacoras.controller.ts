@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { BitacorasService } from './bitacoras.service';
 import { CreateBitacoraDto } from './dto/create-bitacora.dto';
 import { UpdateBitacoraDto } from './dto/update-bitacora.dto';
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('bitacoras')
 @Controller('bitacoras')
 export class BitacorasController {
   constructor(private readonly bitacorasService: BitacorasService) {}

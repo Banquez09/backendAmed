@@ -16,8 +16,22 @@ export class BitacorasService {
     return this.bitacoraRepository.save(createBitacoraDto);
   }
 
-  findAll() {
-    return this.bitacoraRepository.find();
+  async findAll() {
+    const data = await this.bitacoraRepository.find();
+
+    if (data.length === 0) {
+      return {
+        message: 'No hay registros disponibles',
+        data: [],
+        count: 0
+      };
+    }
+
+    return {
+      message: 'Registros encontrados',
+      data,
+      count: data.length
+    };
   }
 
   findOne(id: number) {

@@ -6,6 +6,7 @@ import { Rol } from 'src/rol/entities/rol.entity';
 import { Solicitud } from 'src/solicitud/entities/solicitud.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Cie10 } from "../cie10/entities/cie10.entity";
+import { Bitacora } from "../bitacoras/entities/bitacora.entity";
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -15,7 +16,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: 'Devsync2025+', 
   database: 'postgres',
 //entities: [__dirname + '/**/*.entity{.ts,.js}'],
-  entities: [User, Rol, Ambulancia, EstadoAmbulancia,Solicitud,AphDigital,Cie10],
+  entities: [User, Rol, Ambulancia, EstadoAmbulancia,Solicitud,AphDigital,Cie10,Bitacora],
   synchronize: true, 
   logging: true,
   ssl: {

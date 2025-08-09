@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from "@nestjs/common";
 import { CreateCie10Dto } from './dto/create-cie10.dto';
 import { UpdateCie10Dto } from './dto/update-cie10.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { ILike, Like, Repository } from "typeorm";
 import { Cie10 } from './entities/cie10.entity';
 
 @Injectable()
 export class Cie10Service {
+  private readonly logger = new Logger(Cie10Service.name);
 
   constructor(
     @InjectRepository(Cie10)
@@ -21,23 +22,35 @@ export class Cie10Service {
     const { page = 1, limit = 10, search = '' } = options;
     const skip = (page - 1) * limit;
 
-    const [data, total] = await this.cie10Repo.findAndCount({
-      where: [
-        { codigo: Like(`%${search}%`) },
-        { nombre: Like(`%${search}%`) },
-        { descripcion: Like(`%${search}%`) },
-      ],
-      order: { nombre: 'ASC' },
-      take: limit,
-      skip,
-    });
+    // Si no hay búsqueda, traer todos
+    if (!search || search.trim() === '') {
+      const [data, total] = await this.cie10Repo.findAndCount({
+        order: { nombre: 'ASC' },
+        take: limit,
+        skip,
+      });
 
-    return {
-      total,
-      page,
-      limit,
-      data,
-    };
+      return { total, page, limit, data };
+    }
+
+    const searchTerm = search.trim();
+    try {
+      const [data, total] = await this.cie10Repo.findAndCount({
+        where: [
+          { codigo: ILike(`%${searchTerm}%`) },
+          { nombre: ILike(`%${searchTerm}%`) },
+          { descripcion: ILike(`%${searchTerm}%`) },
+        ],
+        order: { nombre: 'ASC' },
+        take: limit,
+        skip,
+      });
+
+      return { total, page, limit, data };
+    } catch (error) {
+      this.logger.error(`Error en búsqueda: ${error.message}`, error.stack);
+      throw error;
+    }
   }
 
   findOne(id: number) {

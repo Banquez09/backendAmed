@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { Cie10Service } from './cie10.service';
 import { CreateCie10Dto } from './dto/create-cie10.dto';
 import { UpdateCie10Dto } from './dto/update-cie10.dto';
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('cie10')
 @Controller('cie10')
 export class Cie10Controller {
   constructor(private readonly cie10Service: Cie10Service) {}
@@ -13,11 +15,19 @@ export class Cie10Controller {
   }
   @Get()
   findAll(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
-    @Query('search') search = '',
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') search?: string,
   ) {
-    return this.cie10Service.findAll({ page, limit, search });
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+    const searchTerm = search || '';
+
+    return this.cie10Service.findAll({
+      page: pageNum,
+      limit: limitNum,
+      search: searchTerm
+    });
   }
 
   @Get(':id')
