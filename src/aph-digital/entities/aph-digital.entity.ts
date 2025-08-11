@@ -264,6 +264,16 @@ export class AphDigital {
     @Column({ type: 'text', nullable: true })
     firmaPaciente: string;
 
+    @Column({ type: 'text', nullable: true })
+    idUsuarioCreador: string;
+
+    @Column({ type: 'text', nullable: true })
+    evidencia: string;
+
+    @Column({ type: 'varchar', length: 50, nullable: true })
+    tipoDocumento: string;
+
+
     @CreateDateColumn()
     createdAt: Date;
 

@@ -1,8 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ValidationPipe,
+  ParseIntPipe,
+  Query,
+  UseGuards, Request
+} from "@nestjs/common";
 import { AphDigitalService } from './aph-digital.service';
 import { CreateAphDigitalDto } from './dto/create-aph-digital.dto';
 import { UpdateAphDigitalDto } from './dto/update-aph-digital.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags('aph-digital')
 @Controller('aph-digital')
@@ -11,7 +24,12 @@ export class AphDigitalController {
 
 
   @Post()
-  create(@Body(ValidationPipe) createMedicalFormDto: CreateAphDigitalDto) {
+  @ApiOperation({ summary: 'Create a new APH Digital form' })
+  @ApiResponse({ status: 201, description: 'The APH form has been successfully created.' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  create(@Body(ValidationPipe) createMedicalFormDto: CreateAphDigitalDto, @Request() req: any) {
+    createMedicalFormDto.idUsuarioCreador =req.user?.userId;
     return this.aphDigitalService.create(createMedicalFormDto);
   }
 

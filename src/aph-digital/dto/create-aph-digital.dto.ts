@@ -330,4 +330,16 @@ export class CreateAphDigitalDto {
   @IsOptional()
   @IsString()
   firmaSelloFuncionario?: string;
+
+  @IsOptional()
+  @IsString()
+  idUsuarioCreador?: string;
+
+  @IsOptional()
+  @IsString()
+  evidencia?: string;
+
+  @IsOptional()
+  @IsString()
+  tipoDocumento?: string;
 }

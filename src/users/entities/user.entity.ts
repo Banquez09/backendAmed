@@ -32,6 +32,9 @@ export class User {
     @ManyToOne(() => Ambulancia, ambulancia => ambulancia.user)
     @JoinColumn({ name: 'ambulanciaId' }) // Clave foránea
     ambulancia: Ambulancia;
+
+    @Column({ type: 'text', nullable: true })
+    firma: string;
   
     @CreateDateColumn({ type: 'timestamp with time zone' })
     createdAt: Date;

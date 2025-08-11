@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   findOne(id: string) {
-    return this.userRepository.findByIds(id as any);
+    return this.userRepository.findOneById(id as any);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
@@ -100,6 +100,34 @@ export class UsersService {
 
     // Guardar el usuario con la nueva contraseña hasheada
     await this.userRepository.save(user)
+  }
+
+  // Agrega este método a tu UsersService existente
+
+  async updateSignature(id: string, firma: string): Promise<User> {
+    try {
+      // Buscar el usuario
+      const user = await this.userRepository.findOne({
+        where: { id },
+      });
+
+      if (!user) {
+        throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND);
+      }
+
+      // Actualizar la firma
+      user.firma = firma;
+
+      // Guardar los cambios
+      const updatedUser = await this.userRepository.save(user);
+
+      return updatedUser;
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException('Error al actualizar la firma', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
 }

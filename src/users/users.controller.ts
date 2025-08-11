@@ -1,11 +1,24 @@
-import { Controller, Get, Post, Patch, Param, Delete, UseGuards, HttpException, HttpStatus, Body } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  HttpException,
+  HttpStatus,
+  Body,
+  Request
+} from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags, ApiBearerAuth, ApiOkResponse } from "@nestjs/swagger"
 import { UsersService } from "./users.service";
 import { User } from "./entities/user.entity";
-//import { AuthGuard } from "@nestjs/passport";
+import { AuthGuard } from "@nestjs/passport";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { ChangePasswordDto } from "./dto/change-password-dto";
+import { SaveSignatureDto } from "./dto/save-signature-dto";
 
 
 @ApiTags("users")
@@ -85,4 +98,47 @@ export class UsersController {
       throw new HttpException("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
+
+  //Guardar firma del usuario autenticado
+  @Patch('me/signature')
+  @ApiOperation({ summary: 'Save current user signature' })
+  @ApiResponse({ status: 200, description: 'The signature has been successfully saved.', type: User })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async saveMySignature(@Request() req: any, @Body() saveSignatureDto: SaveSignatureDto) {
+
+    try {
+      const userId = req.user?.userId || req.user?.email;
+console.log(userId);
+      if (!userId) {
+        throw new HttpException('Usuario no autenticado', HttpStatus.UNAUTHORIZED);
+      }
+
+      return await this.usersService.updateSignature(userId, saveSignatureDto.firma);
+    } catch (error) {
+      throw new HttpException('Error al guardar la firma', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  //Obtener solo la firma del usuario autenticado
+  @Get('me/signature')
+  @ApiOperation({ summary: 'Get current user signature' })
+  @ApiResponse({ status: 200, description: 'Return the current user signature.' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async getMySignature(@Request() req: any) {
+    try {
+      const userId = req.user?.userId || req.user?.email;
+
+      if (!userId) {
+        throw new HttpException('Usuario no autenticado', HttpStatus.UNAUTHORIZED);
+      }
+
+      const user = await this.usersService.findOne(userId);
+      return { firma: user.firma || null };
+    } catch (error) {
+      throw new HttpException('Error al obtener la firma', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
 }
