@@ -15,42 +15,51 @@ export class AphDigitalService {
   ) {}
 
   async create(createAphDigitalDto: CreateAphDigitalDto): Promise<AphDigital> {
-    const aphDigital = this.AphDigitalRepository.create(createAphDigitalDto);
-    const savedAph = await this.AphDigitalRepository.save(aphDigital);
+    return await this.AphDigitalRepository.manager.transaction(async (manager) => {
+      // 1. Crear y guardar el registro inicial
+      const aphDigital = manager.create(AphDigital, createAphDigitalDto);
+      const savedAph = await manager.save(aphDigital);
 
+      // 2. Actualizar con el numeroFormulario
+      savedAph.numeroFormulario = `FORM-${savedAph.id}`;
+      const finalAph = await manager.save(savedAph);
 
+      // 3. Preparar datos para bitácora
+      const fechaDate = new Date(finalAph.fecha);
 
-    // const bitacoraData = {
-    //   radioOperador: createAphDigitalDto.radioOperador,
-    //   entidad: createAphDigitalDto.eps,
-    //   contacto: createAphDigitalDto.contacto,
-    //   nombrePaciente: createAphDigitalDto.nombrePaciente,
-    //   tipoDocumento: createAphDigitalDto.ti,
-    //   documento: createAphDigitalDto.documento,
-    //   nombreAcompanante: createAphDigitalDto.nombreAcompanante,
-    //   fechaTraslado: createAphDigitalDto.fechaTraslado,
-    //   horaTraslado: createAphDigitalDto.horaTraslado,
-    //   origen: createAphDigitalDto.origen,
-    //   destino: createAphDigitalDto.destino,
-    //   tipoTraslado: createAphDigitalDto.tipoTraslado,
-    //   conductor: createAphDigitalDto.conductor,
-    //   paramedico: createAphDigitalDto.paramedico,
-    //   diagnostico: createAphDigitalDto.diagnostico,
-    //   evolucion: createAphDigitalDto.evolucion,
-    //   codigo: createAphDigitalDto.codigo,
-    //   mv: createAphDigitalDto.mv,
-    //   medico: createAphDigitalDto.medico,
-    //   observacion: createAphDigitalDto.observacion,
-    //   valor: createAphDigitalDto.valor,
-    //   noPlanilla: createAphDigitalDto.noPlanilla,
-    // };
+      const bitacoraData = {
+        radioOperador: "JUAN MANUEL ARRIETA",
+        entidad: finalAph.eps,
+        contacto: finalAph.tel,
+        nombrePaciente: finalAph.nombrePaciente,
+        tipoDocumento: finalAph.tipoDocumento,
+        documento: finalAph.identificacion,
+        nombreAcompanante: finalAph.acompanante,
+        fechaTraslado: fechaDate.toDateString(),
+        horaTraslado: fechaDate.getTime().toString(),
+        origen: finalAph.direccionServicio,
+        destino: finalAph.destinoPaciente,
+        tipoTraslado: finalAph.medicalizado ? 'Medicalizado' :
+          finalAph.ambulanciaBasica ? 'Ambulancia Básica' :
+            finalAph.consultaMedica ? 'Consulta Médica' :
+              'No especificado',
+        conductor: "",
+        paramedico: "",
+        diagnostico: finalAph.diagnostico,
+        evolucion: finalAph.notaEvolucion,
+        codigo: "",
+        mv: "",
+        medico: "",
+        observacion: "",
+        valor: 0,
+        noPlanilla: finalAph.numeroFormulario,
+      };
 
-    // 3. Guardar en bitácora usando su servicio
-    //await this.bitacorasService.create(bitacoraData);
-    savedAph.numeroFormulario = `FORM-${savedAph.id}`;
+      // 4. Guardar en bitácora
+      await this.bitacorasService.create(bitacoraData);
 
-    // Guardar nuevamente con el numeroFormulario asignado
-    return this.AphDigitalRepository.save(savedAph);
+      return finalAph;
+    });
   }
 
   async findAll(): Promise<AphDigital[]> {

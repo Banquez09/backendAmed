@@ -5,7 +5,7 @@ export class AphDigital {
     @PrimaryGeneratedColumn()
     id: number;
 
-    // Información básica
+    // Información básica (requeridos)
     @Column({ type: 'varchar', length: 20 })
     numeroFormulario: string;
 
@@ -21,6 +21,13 @@ export class AphDigital {
     @Column({ type: 'varchar', length: 200 })
     nombrePaciente: string;
 
+    // Campos adicionales del formulario
+    @Column({ type: 'time', nullable: true })
+    horaLlegada: string;
+
+    @Column({ type: 'varchar', length: 150, nullable: true })
+    estadoPaciente: string;
+
     // Tipo de servicio
     @Column({ type: 'boolean', default: false })
     ambulanciaBasica: boolean;
@@ -31,11 +38,15 @@ export class AphDigital {
     @Column({ type: 'boolean', default: false })
     consultaMedica: boolean;
 
+    // Información del paciente
     @Column({ type: 'int', nullable: true })
     edad: number;
 
     @Column({ type: 'enum', enum: ['M', 'F'], nullable: true })
     sexo: string;
+
+    @Column({ type: 'enum', enum: ['CC', 'TI', 'CE', 'PA', 'RC'], nullable: true })
+    tipoDocumento: string;
 
     @Column({ type: 'varchar', length: 50, nullable: true })
     identificacion: string;
@@ -43,11 +54,27 @@ export class AphDigital {
     @Column({ type: 'enum', enum: ['Soltero', 'Casado', 'Viudo', 'Divorciado', 'Union Libre'], nullable: true })
     estadoCivil: string;
 
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    eps: string;
+
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    arl: string;
+
+    @Column({ type: 'varchar', length: 255, nullable: true })
+    direccion: string;
+
+    @Column({ type: 'varchar', length: 20, nullable: true })
+    telefono: string;
+
+    // Diagnóstico y evolución
     @Column({ type: 'text', nullable: true })
     diagnostico: string;
 
     @Column({ type: 'text', nullable: true })
     notaEvolucion: string;
+
+    @Column({ type: 'text', nullable: true })
+    procedimientos: string;
 
     // Signos Vitales
     @Column({ type: 'varchar', length: 10, nullable: true })
@@ -59,28 +86,31 @@ export class AphDigital {
     @Column({ type: 'varchar', length: 10, nullable: true })
     temp: string; // Temperatura
 
-    @Column({ type: 'varchar', length: 10, nullable: true })
+    @Column({ type: 'varchar', length: 20, nullable: true })
     ta: string; // Tensión arterial
 
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    spo2: string; // Saturación de oxígeno
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    glasgow: string; // Escala de Glasgow
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    peso: string; // Peso en kg
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    talla: string; // Talla en cm
+
+    // Campos del servicio original que pueden ser útiles
     @Column({ type: 'varchar', length: 100, nullable: true })
     aceptadoPor: string;
 
-    // Estado clínico general - falta estado clnico del paciente
     @Column({ type: 'varchar', length: 150, nullable: true })
     estadoclinicopac: string;
-
-    @Column({ type: 'varchar', length: 20, nullable: true })
-    eps: string;
-
-    @Column({ type: 'varchar', length: 20, nullable: true })
-    arl: string;
 
     // Oxígeno y equipos
     @Column({ type: 'varchar', length: 10, nullable: true })
     o2: string;
-
-    /*@Column({ type: 'varchar', length: 20, nullable: true })
-    lmt: string;*/
 
     @Column({ type: 'boolean', default: false })
     canulaNasal: boolean;
@@ -93,12 +123,6 @@ export class AphDigital {
 
     @Column({ type: 'boolean', default: false })
     mascaraReservorio: boolean;
-
-    // @Column({ type: 'boolean', default: false })
-    // equiposBiomedicos: boolean;
-
-    // @Column({ type: 'boolean', default: false })
-    // bombaInfusion: boolean;
 
     @Column({ type: 'varchar', length: 10, nullable: true })
     via: string;
@@ -119,9 +143,6 @@ export class AphDigital {
     @Column({ type: 'boolean', default: false })
     ventiladorMecanico: boolean;
 
-    // @Column({ type: 'boolean', default: false })
-    // respirador: boolean;
-
     @Column({ type: 'boolean', default: false })
     valvulaPeep: boolean;
 
@@ -130,9 +151,9 @@ export class AphDigital {
 
     @Column({ type: 'boolean', default: false })
     joules: boolean;
-    //preguntar por el joules
-    @Column({ type: 'varchar', length: 20, nullable: true })
-    aspirador: string;
+
+    @Column({ type: 'boolean', default: false })
+    aspirador: boolean;
 
     @Column({ type: 'boolean', default: false })
     capnografo: boolean;
@@ -150,14 +171,13 @@ export class AphDigital {
     @Column({ type: 'varchar', length: 20, nullable: true })
     tel: string;
 
-    // Destino del paciente
     @Column({ type: 'varchar', length: 200, nullable: true })
     destinoPaciente: string;
 
     @Column({ type: 'varchar', length: 200, nullable: true })
     estudio: string;
 
-    // Hora
+    // Horarios
     @Column({ type: 'time', nullable: true })
     horarioLL1: string;
 
@@ -225,11 +245,17 @@ export class AphDigital {
     @Column({ type: 'varchar', length: 100, nullable: true })
     factura: string;
 
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    lugarOcurrencia: string;
+
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    destinoFinal: string;
+
+    // Evaluación del servicio
     @Column({ type: 'enum', enum: ['MUY_BUENA', 'BUENA', 'REGULAR', 'MALA', 'MUY_MALA'], nullable: true })
     comoParecioServicio: string;
 
     // Recomendaciones
-
     @Column({ type: 'boolean', default: false })
     definitivamenteSi: boolean;
 
@@ -242,13 +268,26 @@ export class AphDigital {
     @Column({ type: 'boolean', default: false })
     probablementeNo: boolean;
 
+    // Firmas y autorización
+    @Column({ type: 'text', nullable: true })
+    firmaMedico: string;
+
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    nombreMedico: string;
+
+    @Column({ type: 'varchar', length: 50, nullable: true })
+    registroMedico: string;
+
+    @Column({ type: 'text', nullable: true })
+    firmaPaciente: string;
+
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    nombreResponsable: string;
+
+    @Column({ type: 'varchar', length: 50, nullable: true })
+    parentesco: string;
+
     // Firmas y funcionarios
-    // @Column({ type: 'varchar', length: 200, nullable: true })
-    // institucionResponsablePaciente: string;
-
-    // @Column({ type: 'varchar', length: 200, nullable: true })
-    // institucionRecibePaciente: string;
-
     @Column({ type: 'text', nullable: true })
     firmaSelloResponsable: string;
 
@@ -258,21 +297,12 @@ export class AphDigital {
     @Column({ type: 'text', nullable: true })
     firmaInstitucionRecibePaciente: string;
 
-    @Column({ type: 'text', nullable: true })
-    firmaMedico: string;
-
-    @Column({ type: 'text', nullable: true })
-    firmaPaciente: string;
-
+    // Campos de control
     @Column({ type: 'text', nullable: true })
     idUsuarioCreador: string;
 
     @Column({ type: 'text', nullable: true })
     evidencia: string;
-
-    @Column({ type: 'varchar', length: 50, nullable: true })
-    tipoDocumento: string;
-
 
     @CreateDateColumn()
     createdAt: Date;
@@ -280,4 +310,3 @@ export class AphDigital {
     @UpdateDateColumn()
     updatedAt: Date;
 }
-

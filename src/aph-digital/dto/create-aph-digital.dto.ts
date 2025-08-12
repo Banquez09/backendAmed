@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 
 export class CreateAphDigitalDto {
-  @IsString()
+  // Información básica (requeridos)
   @IsString()
   @IsOptional()
   numeroFormulario: string;
@@ -30,6 +30,16 @@ export class CreateAphDigitalDto {
   @IsNotEmpty()
   nombrePaciente: string;
 
+  // Campos adicionales del formulario
+  @IsOptional()
+  @IsString()
+  horaLlegada?: string;
+
+  @IsOptional()
+  @IsString()
+  estadoPaciente?: string;
+
+  // Tipo de servicio
   @IsOptional()
   @IsBoolean()
   ambulanciaBasica?: boolean;
@@ -42,6 +52,7 @@ export class CreateAphDigitalDto {
   @IsBoolean()
   consultaMedica?: boolean;
 
+  // Información del paciente
   @IsOptional()
   @IsNumber()
   edad?: number;
@@ -49,6 +60,10 @@ export class CreateAphDigitalDto {
   @IsOptional()
   @IsEnum(['M', 'F'])
   sexo?: string;
+
+  @IsOptional()
+  @IsEnum(['CC', 'TI', 'CE', 'PA', 'RC'])
+  tipoDocumento?: string;
 
   @IsOptional()
   @IsString()
@@ -60,34 +75,6 @@ export class CreateAphDigitalDto {
 
   @IsOptional()
   @IsString()
-  diagnostico?: string;
-
-  @IsOptional()
-  @IsString()
-  notaEvolucion?: string;
-
-  @IsOptional()
-  @IsString()
-  fc?: string;
-
-  @IsOptional()
-  @IsString()
-  fr?: string;
-
-  @IsOptional()
-  @IsString()
-  temp?: string;
-
-  @IsOptional()
-  @IsString()
-  ta?: string;
-
-  @IsOptional()
-  @IsString()
-  aceptadoPor?: string;
-
-  @IsOptional()
-  @IsString()
   eps?: string;
 
   @IsOptional()
@@ -96,11 +83,71 @@ export class CreateAphDigitalDto {
 
   @IsOptional()
   @IsString()
-  o2?: string;
+  direccion?: string;
 
   @IsOptional()
   @IsString()
-  lmt?: string;
+  telefono?: string;
+
+  // Diagnóstico y evolución
+  @IsOptional()
+  @IsString()
+  diagnostico?: string;
+
+  @IsOptional()
+  @IsString()
+  notaEvolucion?: string;
+
+  @IsOptional()
+  @IsString()
+  procedimientos?: string;
+
+  // Signos Vitales
+  @IsOptional()
+  @IsString()
+  fc?: string; // Frecuencia cardíaca
+
+  @IsOptional()
+  @IsString()
+  fr?: string; // Frecuencia respiratoria
+
+  @IsOptional()
+  @IsString()
+  temp?: string; // Temperatura
+
+  @IsOptional()
+  @IsString()
+  ta?: string; // Tensión arterial
+
+  @IsOptional()
+  @IsString()
+  spo2?: string; // Saturación de oxígeno
+
+  @IsOptional()
+  @IsString()
+  glasgow?: string; // Escala de Glasgow
+
+  @IsOptional()
+  @IsString()
+  peso?: string; // Peso en kg
+
+  @IsOptional()
+  @IsString()
+  talla?: string; // Talla en cm
+
+  // Campos del servicio original que pueden ser útiles
+  @IsOptional()
+  @IsString()
+  aceptadoPor?: string;
+
+  @IsOptional()
+  @IsString()
+  estadoclinicopac?: string;
+
+  // Oxígeno y equipos
+  @IsOptional()
+  @IsString()
+  o2?: string;
 
   @IsOptional()
   @IsBoolean()
@@ -119,14 +166,6 @@ export class CreateAphDigitalDto {
   mascaraReservorio?: boolean;
 
   @IsOptional()
-  @IsBoolean()
-  equiposBiomedicos?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  bombaInfusion?: boolean;
-
-  @IsOptional()
   @IsString()
   via?: string;
 
@@ -135,16 +174,21 @@ export class CreateAphDigitalDto {
   ccVia?: string;
 
   @IsOptional()
+  @IsString()
+  via2?: string;
+
+  @IsOptional()
+  @IsString()
+  ccVia2?: string;
+
+  // Equipos adicionales
+  @IsOptional()
   @IsBoolean()
   equipoMultiparametro?: boolean;
 
   @IsOptional()
   @IsBoolean()
   ventiladorMecanico?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  respirador?: boolean;
 
   @IsOptional()
   @IsBoolean()
@@ -159,17 +203,18 @@ export class CreateAphDigitalDto {
   joules?: boolean;
 
   @IsOptional()
-  @IsString()
-  aspirador?: string;
+  @IsBoolean()
+  aspirador?: boolean;
 
   @IsOptional()
   @IsBoolean()
-  collarCervical?: boolean;
+  capnografo?: boolean;
 
   @IsOptional()
   @IsBoolean()
-  pulsioximetro?: boolean;
+  pulmoaire?: boolean;
 
+  // Información de transporte
   @IsOptional()
   @IsString()
   ambulanciaSolicitada?: string;
@@ -190,34 +235,40 @@ export class CreateAphDigitalDto {
   @IsString()
   estudio?: string;
 
+  // Horarios
   @IsOptional()
   @IsString()
-  horarioILL?: string;
+  horarioLL1?: string;
 
   @IsOptional()
   @IsString()
-  horarioNS?: string;
+  horarioSa1?: string;
 
   @IsOptional()
   @IsString()
-  horarioHILL?: string;
+  horarioLL2?: string;
 
   @IsOptional()
   @IsString()
-  horarioHNS?: string;
+  horarioSa2?: string;
 
   @IsOptional()
   @IsString()
-  horarioRS?: string;
+  horarioLL3?: string;
 
   @IsOptional()
   @IsString()
-  horarioHILL2?: string;
+  horarioSa3?: string;
 
   @IsOptional()
   @IsString()
-  horarioHNS2?: string;
+  horarioLL4?: string;
 
+  @IsOptional()
+  @IsString()
+  horarioSa4?: string;
+
+  // Tipo de servicio de ambulancia
   @IsOptional()
   @IsBoolean()
   servicioSimple?: boolean;
@@ -234,6 +285,7 @@ export class CreateAphDigitalDto {
   @IsString()
   direccionTrasladoPaciente?: string;
 
+  // Responsable del paciente
   @IsOptional()
   @IsString()
   responsablePaciente?: string;
@@ -250,15 +302,15 @@ export class CreateAphDigitalDto {
   @IsString()
   recomendacionesTraslado?: string;
 
+  // Medicamentos e insumos
   @IsOptional()
   @IsArray()
   medicamentosInsumos?: {
     descripcion: string;
     cantidad: number;
-    descripcion2: string;
-    cantidad2: number;
   }[];
 
+  // Información del servicio
   @IsOptional()
   @IsString()
   ordenServicioNo?: string;
@@ -272,17 +324,19 @@ export class CreateAphDigitalDto {
   factura?: string;
 
   @IsOptional()
+  @IsString()
+  lugarOcurrencia?: string;
+
+  @IsOptional()
+  @IsString()
+  destinoFinal?: string;
+
+  // Evaluación del servicio
+  @IsOptional()
   @IsEnum(['MUY_BUENA', 'BUENA', 'REGULAR', 'MALA', 'MUY_MALA'])
   comoParecioServicio?: string;
 
-  @IsOptional()
-  @IsBoolean()
-  recomendariaFamiliares?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  recomendariaAmigos?: boolean;
-
+  // Recomendaciones
   @IsOptional()
   @IsBoolean()
   definitivamenteSi?: boolean;
@@ -299,17 +353,18 @@ export class CreateAphDigitalDto {
   @IsBoolean()
   probablementeNo?: boolean;
 
+  // Firmas y autorización
   @IsOptional()
   @IsString()
-  institucionResponsablePaciente?: string;
+  firmaMedico?: string;
 
   @IsOptional()
   @IsString()
-  institucionRecibePaciente?: string;
+  nombreMedico?: string;
 
   @IsOptional()
   @IsString()
-  firmaInstitucionRecibePaciente?: string;
+  registroMedico?: string;
 
   @IsOptional()
   @IsString()
@@ -317,8 +372,13 @@ export class CreateAphDigitalDto {
 
   @IsOptional()
   @IsString()
-  firmaMedico?: string;
+  nombreResponsable?: string;
 
+  @IsOptional()
+  @IsString()
+  parentesco?: string;
+
+  // Firmas y funcionarios
   @IsOptional()
   @IsString()
   firmaSelloResponsable?: string;
@@ -329,8 +389,9 @@ export class CreateAphDigitalDto {
 
   @IsOptional()
   @IsString()
-  firmaSelloFuncionario?: string;
+  firmaInstitucionRecibePaciente?: string;
 
+  // Campos de control
   @IsOptional()
   @IsString()
   idUsuarioCreador?: string;
@@ -338,8 +399,4 @@ export class CreateAphDigitalDto {
   @IsOptional()
   @IsString()
   evidencia?: string;
-
-  @IsOptional()
-  @IsString()
-  tipoDocumento?: string;
 }
