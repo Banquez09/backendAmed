@@ -50,8 +50,8 @@ export class Bitacora {
   @Column()
   diagnostico: string;
 
-  @Column()
-  evolucion: string;
+  // @Column()
+  // evolucion: string;
 
   @Column()
   codigo: string;
@@ -68,6 +68,6 @@ export class Bitacora {
   @Column('decimal', { precision: 10, scale: 2 })
   valor: number;
 
-  @Column()
-  noPlanilla: string;
+  // @Column()
+  // noPlanilla: string;
 }

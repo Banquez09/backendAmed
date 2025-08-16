@@ -61,9 +61,9 @@ export class CreateBitacoraDto {
   @IsNotEmpty()
   diagnostico: string;
 
-  @IsString()
-  @IsNotEmpty()
-  evolucion: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // evolucion: string;
 
   @IsString()
   @IsNotEmpty()
@@ -85,7 +85,7 @@ export class CreateBitacoraDto {
   @IsNotEmpty()
   valor: number;
 
-  @IsString()
-  @IsNotEmpty()
-  noPlanilla: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // noPlanilla: string;
 }
