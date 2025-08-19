@@ -21,7 +21,7 @@ export class AphDigitalService {
       const savedAph = await manager.save(aphDigital);
 
       // 2. Actualizar con el numeroFormulario
-      savedAph.numeroFormulario = `FORM-${savedAph.id}`;
+      savedAph.numeroFormulario = `${savedAph.id}`;
       const finalAph = await manager.save(savedAph);
 
       // 3. Preparar datos para bitácora

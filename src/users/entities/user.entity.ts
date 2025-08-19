@@ -4,7 +4,7 @@ import { Rol } from "src/rol/entities/rol.entity";
 import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-@Index(['email'], { unique: true })
+@Index(['username'], { unique: true })
 export class User {
 
     @PrimaryGeneratedColumn('uuid')
@@ -15,9 +15,9 @@ export class User {
   
     @Column({ type: 'varchar', length: 100 })
     apellido: string;
-  
-    @Column({ type: 'varchar', length: 255, unique: true })
-    email: string;
+
+    @Column({ type: 'varchar', length: 255, unique: true,nullable: true})
+    username: string;
   
     @Column({ type: 'varchar', length: 255 })
     password: string;

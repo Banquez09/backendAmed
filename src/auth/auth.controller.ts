@@ -5,7 +5,7 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 
 class LoginDto {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -20,7 +20,10 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async login(@Body() loginDto: LoginDto) {
     try {
-      const result = await this.authService.login(loginDto.email, loginDto.password);
+      const result = await this.authService.login(
+        loginDto.username,
+        loginDto.password,
+      );
       console.log('Login result:', result); // Agregamos un log para depuración
       if (!result) {
         throw new UnauthorizedException('Credenciales inválidas');

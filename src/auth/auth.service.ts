@@ -14,32 +14,50 @@ export class AuthService {
   ) {}
 
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersRepository.findOne({ where: { email }, relations: ['rol'] });
+  async validateUser(username: string, pass: string): Promise<any> {
+    const user = await this.usersRepository.findOne({
+      where: { username },
+      relations: ['rol']
+    });
+
+    console.log("USUARIO", user);
+
     if (!user) {
       console.log("Usuario no encontrado");
       return null;
     }
-    console.log("Usuario encontrado:", user.email);
-    console.log("Comparación de contraseñas:", await bcrypt.compare(pass, user.password));
-    if (await bcrypt.compare(pass, user.password)) {
+
+    // Verificar que el usuario tenga una contraseña válida
+    if (!user.password) {
+      console.log("Usuario sin contraseña válida");
+      return null;
+    }
+
+    console.log("CONTRASEÑA", user.password);
+    console.log("Usuario encontrado:", user.username);
+
+    const isPasswordValid = await bcrypt.compare(pass, user.password);
+    console.log("Comparación de contraseñas:", isPasswordValid);
+
+    if (isPasswordValid) {
       const { password, ...result } = user;
       return result;
     }
+
     console.log("Contraseña incorrecta");
     return null;
   }
 
-  async login(email: string, password: string) {
-    const user = await this.validateUser(email, password);
+  async login(username: string, password: string) {
+    const user = await this.validateUser(username, password);
     if (!user) {
-      console.log("Login fallido para el email:", email);
+      console.log("Login fallido para el usuario:", username);
       throw new UnauthorizedException('Credenciales inválidas');
     }
-    console.log("Login exitoso para el usuario:", user.email);
+    console.log("Login exitoso para el usuario:", user.username);
     const userRoleName = user.rol ? user.rol.nombre : "default_role"
 
-    const payload = { email: user.email, sub: user.id, role: userRoleName }
+    const payload = { username: user.username, sub: user.id, role: userRoleName }
     return {
       access_token: this.jwtService.sign(payload),
       role: userRoleName, // Ahora devolvemos el nombre del rol como una cadena
