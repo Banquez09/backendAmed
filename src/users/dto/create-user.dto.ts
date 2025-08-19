@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsString, IsEmail, IsOptional, IsNumber, MinLength } from "class-validator"
-import { Type } from "class-transformer" // Necesario para transformar rolId a número
+import { Type } from "class-transformer"
+import { Column } from "typeorm"; // Necesario para transformar rolId a número
 
 export class CreateUserDto {
   @ApiProperty({ description: "Nombre del usuario", example: "Juan" })
@@ -11,9 +12,9 @@ export class CreateUserDto {
   @IsString()
   apellido: string
 
-  @ApiProperty({ description: "Email del usuario (único)", example: "juan.perez@example.com" })
-  @IsEmail()
-  email: string
+
+  @ApiProperty({ description: "El nombre de usuario (único)", example: "Amed Prueba" })
+  username: string;
 
   @ApiProperty({ description: "Contraseña del usuario", example: "passwordSegura123", minLength: 6 })
   @IsString()
