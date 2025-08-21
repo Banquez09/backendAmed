@@ -44,7 +44,7 @@ export class AphDigitalService {
           finalAph.ambulanciaBasica ? 'Ambulancia Básica' :
             finalAph.consultaMedica ? 'Consulta Médica' :
               'No especificado',
-        conductor: "",
+        conductor: finalAph.nombreConductor,
         paramedico: "",
         diagnostico: finalAph.diagnostico,
         evolucion: finalAph.notaEvolucion,

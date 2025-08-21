@@ -30,6 +30,10 @@ export class CreateAphDigitalDto {
   @IsNotEmpty()
   nombrePaciente: string;
 
+  @IsString()
+  @IsOptional()
+  nombreConductor: string;
+
   // Campos adicionales del formulario
   @IsOptional()
   @IsString()

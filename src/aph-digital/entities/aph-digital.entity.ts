@@ -28,6 +28,9 @@ export class AphDigital {
     @Column({ type: 'varchar', length: 150, nullable: true })
     estadoPaciente: string;
 
+    @Column({ type: 'varchar', length: 150, nullable: true })
+    nombreConductor: string;
+
     // Tipo de servicio
     @Column({ type: 'boolean', default: false })
     ambulanciaBasica: boolean;
