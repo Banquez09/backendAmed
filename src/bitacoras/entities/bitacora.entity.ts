@@ -11,6 +11,9 @@ export class Bitacora {
   @Column()
   entidad: string;
 
+  @Column({type: 'varchar', length: 200, nullable: true})
+  arl: string;
+
   @Column()
   contacto: string;
 

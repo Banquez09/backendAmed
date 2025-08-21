@@ -11,6 +11,10 @@ export class CreateBitacoraDto {
 
   @IsString()
   @IsNotEmpty()
+  arl: string;
+
+  @IsString()
+  @IsNotEmpty()
   contacto: string;
 
   @IsString()

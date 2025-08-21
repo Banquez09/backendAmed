@@ -30,6 +30,7 @@ export class AphDigitalService {
       const bitacoraData = {
         radioOperador: "JUAN MANUEL ARRIETA",
         entidad: finalAph.eps,
+        arl: finalAph.arl,
         contacto: finalAph.tel,
         nombrePaciente: finalAph.nombrePaciente,
         tipoDocumento: finalAph.tipoDocumento,
