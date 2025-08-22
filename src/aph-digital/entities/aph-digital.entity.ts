@@ -48,7 +48,7 @@ export class AphDigital {
     @Column({ type: 'enum', enum: ['M', 'F'], nullable: true })
     sexo: string;
 
-    @Column({ type: 'enum', enum: ['CC', 'TI', 'CE', 'PA', 'RC'], nullable: true })
+    @Column({ type: 'enum', enum: ['CC', 'TI', 'CE', 'PA', 'RC','PT'], nullable: true })
     tipoDocumento: string;
 
     @Column({ type: 'varchar', length: 50, nullable: true })
@@ -255,21 +255,11 @@ export class AphDigital {
     destinoFinal: string;
 
     // Evaluación del servicio
-    @Column({ type: 'enum', enum: ['MUY_BUENA', 'BUENA', 'REGULAR', 'MALA', 'MUY_MALA'], nullable: true })
+    @Column({ type: 'varchar', nullable: true })
     comoParecioServicio: string;
 
-    // Recomendaciones
-    @Column({ type: 'boolean', default: false })
-    definitivamenteSi: boolean;
-
-    @Column({ type: 'boolean', default: false })
-    probablementeSi: boolean;
-
-    @Column({ type: 'boolean', default: false })
-    definitivamenteNo: boolean;
-
-    @Column({ type: 'boolean', default: false })
-    probablementeNo: boolean;
+    @Column({ type: 'varchar', length: 200, nullable: true })
+    recomendacion: string;
 
     // Firmas y autorización
     @Column({ type: 'text', nullable: true })
