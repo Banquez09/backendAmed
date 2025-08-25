@@ -12,6 +12,6 @@ import { RolModule } from "../rol/rol.module";
   imports: [TypeOrmModule.forFeature([User, Rol, Ambulancia]),RolModule],
   controllers: [UsersController],
   providers: [UsersService,SeedUser],
-  exports: [SeedUser],
+  exports: [UsersService,SeedUser],
 })
 export class UsersModule {}

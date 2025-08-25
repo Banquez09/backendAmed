@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AphDigital } from './entities/aph-digital.entity';
 import { Repository } from 'typeorm';
 import { BitacorasService } from "../bitacoras/bitacoras.service";
+import { UsersService } from "../users/users.service";
 
 @Injectable()
 export class AphDigitalService {
@@ -12,6 +13,7 @@ export class AphDigitalService {
     @InjectRepository(AphDigital)
     private AphDigitalRepository: Repository<AphDigital>,
     private readonly bitacorasService: BitacorasService,
+    private readonly usuarioService: UsersService,
   ) {}
 
   async create(createAphDigitalDto: CreateAphDigitalDto): Promise<AphDigital> {
@@ -69,17 +71,24 @@ export class AphDigitalService {
     });
   }
 
-  async findOne(id: number): Promise<AphDigital> {
-    const AphDigital = await this.AphDigitalRepository.findOne({ 
-      where: { id } 
-    });
-    
-    if (!AphDigital) {
+  async findOne(id: number): Promise<any> {
+    const aphDigital = await this.AphDigitalRepository.findOne({ where: { id } });
+
+    if (!aphDigital) {
       throw new NotFoundException(`Formulario médico con ID ${id} no encontrado`);
     }
-    
-    return AphDigital;
+
+    // Buscar el usuario por el idUsuarioCreador
+    const usuario = await this.usuarioService.findOne(
+      aphDigital.idUsuarioCreador
+    );
+
+    return {
+      ...aphDigital,
+      firmaFuncionarioAmed: usuario?.firma || null, // Adjuntamos firma a la respuesta
+    };
   }
+
 
   async findByNumeroFormulario(numeroFormulario: string): Promise<AphDigital> {
     const AphDigital = await this.AphDigitalRepository.findOne({

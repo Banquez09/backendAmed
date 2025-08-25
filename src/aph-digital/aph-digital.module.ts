@@ -5,9 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AphDigital } from './entities/aph-digital.entity';
 import { BitacorasModule } from "../bitacoras/bitacoras.module";
 import { Bitacora } from "../bitacoras/entities/bitacora.entity";
+import { User } from "../users/entities/user.entity";
+import { UsersModule } from "../users/users.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AphDigital,Bitacora]),BitacorasModule],
+  imports: [
+    TypeOrmModule.forFeature([AphDigital, Bitacora, User]),
+    BitacorasModule,UsersModule
+  ],
   controllers: [AphDigitalController],
   providers: [AphDigitalService],
   exports: [AphDigitalService],
