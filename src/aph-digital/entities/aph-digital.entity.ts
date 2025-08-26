@@ -290,6 +290,9 @@ export class AphDigital {
     @Column({ type: 'text', nullable: true })
     firmaInstitucionRecibePaciente: string;
 
+    @Column({ type: 'text', nullable: true })
+    consentimientoFirma: string;
+
     // Campos de control
     @Column({ type: 'text', nullable: true })
     idUsuarioCreador: string;

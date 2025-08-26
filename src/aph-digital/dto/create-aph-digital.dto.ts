@@ -335,10 +335,9 @@ export class CreateAphDigitalDto {
   @IsString()
   destinoFinal?: string;
 
-  // Evaluación del servicio
-  // @IsOptional()
-  // @IsEnum(['MUY_BUENA', 'BUENA', 'REGULAR', 'MALA', 'MUY_MALA'])
-  // comoParecioServicio?: string;
+  @IsString()
+  @IsOptional()
+  consentimientoFirma: string;
 
   // Recomendaciones
   @IsOptional()
