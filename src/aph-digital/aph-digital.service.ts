@@ -42,9 +42,9 @@ export class AphDigitalService {
         horaTraslado: fechaDate.getTime().toString(),
         origen: finalAph.direccionServicio,
         destino: finalAph.destinoPaciente,
-        tipoTraslado: finalAph.medicalizado ? 'Medicalizado' :
-          finalAph.ambulanciaBasica ? 'Ambulancia Básica' :
-            finalAph.consultaMedica ? 'Consulta Médica' :
+        tipoTraslado: finalAph.servicioSimple ? 'Simple' :
+          finalAph.redondo ? 'Redondo' :
+            finalAph.fallido ? 'Fallido' :
               'No especificado',
         conductor: finalAph.nombreConductor,
         paramedico: "",
