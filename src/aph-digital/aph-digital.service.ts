@@ -86,6 +86,8 @@ export class AphDigitalService {
     return {
       ...aphDigital,
       firmaFuncionarioAmed: usuario?.firma || null, // Adjuntamos firma a la respuesta
+      nombreFuncionarioAmed: `${usuario?.nombre} ${usuario?.apellido}`
+
     };
   }
 
