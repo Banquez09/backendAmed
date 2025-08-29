@@ -33,7 +33,7 @@ export class AphDigitalService {
         radioOperador: "JUAN MANUEL ARRIETA",
         entidad: finalAph.eps,
         arl: finalAph.arl,
-        contacto: finalAph.tel,
+        contacto: finalAph.ambulanciaSolicitada,
         nombrePaciente: finalAph.nombrePaciente,
         tipoDocumento: finalAph.tipoDocumento,
         documento: finalAph.identificacion,
