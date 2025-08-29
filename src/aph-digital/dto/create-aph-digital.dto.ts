@@ -34,6 +34,10 @@ export class CreateAphDigitalDto {
   @IsOptional()
   nombreConductor: string;
 
+  @IsString()
+  @IsOptional()
+  movil: string;
+
   // Campos adicionales del formulario
   @IsOptional()
   @IsString()
